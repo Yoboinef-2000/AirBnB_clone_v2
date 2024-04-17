@@ -2,3 +2,4 @@
 
 """Import the test modules et al."""
 import unittest
+import console
