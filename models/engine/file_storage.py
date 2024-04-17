@@ -10,7 +10,7 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        if cls is not None:
+        if cls:
             theSpecificClassDict = {}
             for key in FileStorage.__objects:
                 splitNgetTheName = key.split('.')[0]
