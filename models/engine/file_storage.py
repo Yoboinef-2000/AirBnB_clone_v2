@@ -12,9 +12,11 @@ class FileStorage:
         """Returns a dictionary of models currently in storage"""
         if cls is not None:
             theSpecificClassDict = {}
-            for key, value in self.__objects.items():
-                if cls == key:
-                    theSpecificClassDict[key] = value
+            for key in FileStorage.__objects:
+                splitNgetTheName = key.split('.')[0]
+                if splitNgetTheName == cls.__name__:
+                    theSpecificClassDict[key] = self.__objects[key]
+            # print (theSpecificClassDict)
             return theSpecificClassDict
         return FileStorage.__objects
 
