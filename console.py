@@ -10,6 +10,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+import shlex
 
 
 class HBNBCommand(cmd.Cmd):
@@ -226,14 +227,18 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            objectsDict = storage.all(HBNBCommand.classes[args])
+            for k, v in objectsDict.items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            objectsDict = storage.all()
+            for k, v in objectsDict.items():
                 print_list.append(str(v))
 
         print(print_list)
+
+    
 
     def help_all(self):
         """ Help information for the all command """
