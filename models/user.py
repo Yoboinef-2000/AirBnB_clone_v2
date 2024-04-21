@@ -24,10 +24,6 @@ class User(BaseModel, Base):
         password = ''
         first_name = ''
         last_name = ''
-    
-    def __init__(self, *args, **kwargs):
-        """Initialize User."""
-        super().__init__(*args, **kwargs)
 
     def __setattr__(self, name, value):
         """Use md5 encryption to set a password."""
