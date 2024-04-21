@@ -17,16 +17,8 @@ class User(BaseModel, Base):
         password = Column(String(128), nullable=False)
         first_name = Column(String(128), nullable=True)
         last_name = Column(String(128), nullable=True)
-        places = relationship("Place", backref="user")
-        reviews = relationship("Review", backref="user")
     else:
         email = ''
         password = ''
         first_name = ''
         last_name = ''
-
-    def __setattr__(self, name, value):
-        """Use md5 encryption to set a password."""
-        if name == "password":
-            value = md5(value.encode()).hexdigest()
-        super().__setattr__(name, value)
