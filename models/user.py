@@ -8,9 +8,10 @@ from sqlalchemy.orm import relationship
 
 theREEEALenv = getenv('HBNB_TYPE_STORAGE')
 
+
 class User(BaseModel, Base):
     """This class defines a user by various attributes"""
-    
+
     if theREEEALenv == "db":
         __tablename__ = 'users'
         email = Column(String(128), nullable=False)
