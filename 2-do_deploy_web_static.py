@@ -21,20 +21,32 @@ def do_deploy(archive_path):
         return False
 
     try:
+        # put(archive_path, '/tmp/')
+
+        # filename = os.path.basename(archive_path)
+        # folder_name = filename.split('.')[0]
+        # run('mkdir -p /data/web_static/releases/{}/'.format(folder_name))
+        # run('tar -xzf /tmp/{} -C /data/web_static/releases/{}/'
+        #     .format(filename, folder_name))
+
+        # run('rm /tmp/{}'.format(filename))
+
+        # run('rm /data/web_static/current')
+
+        # run('ln -s /data/web_static/releases/{}/ /data/web_static/current'
+        #     .format(folder_name))
+        # return True
+        filename = archive_path.split("/")[-1]
+        foldername = filename.split(".")[0]
+        path = "/data/web_static/releases/"
         put(archive_path, '/tmp/')
-
-        filename = os.path.basename(archive_path)
-        folder_name = filename.split('.')[0]
-        run('mkdir -p /data/web_static/releases/{}/'.format(folder_name))
-        run('tar -xzf /tmp/{} -C /data/web_static/releases/{}/'
-            .format(filename, folder_name))
-
+        run('mkdir -p {}{}/'.format(path, foldername))
+        run('tar -xzf /tmp/{} -C {}{}/'.format(filename, path, foldername))
         run('rm /tmp/{}'.format(filename))
-
-        run('rm /data/web_static/current')
-
-        run('ln -s /data/web_static/releases/{}/ /data/web_static/current'
-            .format(folder_name))
+        run('mv {0}{1}/web_static/* {0}{1}/'.format(path, foldername))
+        run('rm -rf {}{}/web_static'.format(path, foldername))
+        run('rm -rf /data/web_static/current')
+        run('ln -s {}{}/ /data/web_static/current'.format(path, foldername))
         return True
     except Exception as e:
         print(e)
