@@ -17,7 +17,7 @@ def do_deploy(archive_path):
     :param archive_path: Path to the archive file
     :return: True if successful, False otherwise
     """
-    if not os.path.exists(archive_path):
+    if os.path.exists(archive_path) is False:
         return False
 
     try:
