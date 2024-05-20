@@ -1,3 +1,4 @@
+
 #!/usr/bin/python3
 
 """The DBStorage Class."""
@@ -60,7 +61,7 @@ class DBstorage:
         self.__session.commit()
 
     def delete(self, obj=None):
-        """delete from the current database session obj if not None"""
+        """delete from the current database session obj if not None."""
         if obj is not None:
             self.__session.delete(obj)
 
@@ -70,3 +71,8 @@ class DBstorage:
         sesh = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sesh)
         self.__session = Session()
+
+    def close(self):
+        """Call the remove method on the private session attribute."""
+        self.__session.remove()
+

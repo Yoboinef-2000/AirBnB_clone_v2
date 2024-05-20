@@ -25,8 +25,8 @@ class Place(BaseModel, Base):
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
 
-        user = relationship("User", back_populates="places")
-        city = relationship("City", back_populates="places")
+        # user = relationship("User", back_populates="places")
+        # city = relationship("City", back_populates="places")
         reviews = relationship("Review", cascade="all, delete", backref="place")
 
     else:
@@ -51,4 +51,3 @@ class Place(BaseModel, Base):
             if review.place_id == self.id:
                 review_list.append(review)
         return review_list
-

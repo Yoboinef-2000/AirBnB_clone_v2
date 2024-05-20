@@ -8,7 +8,7 @@ exec { 'setUpWebServers':
           sudo mkdir /data/web_static/releases/;
           sudo mkdir /data/web_static/shared/;
           sudo mkdir /data/web_static/releases/test/; 
-          sudo echo 'Hello Fellow Papi Believers' | sudo tee /data/web_static/releases/test/index.html;
+          sudo echo 'Hola' | sudo tee /data/web_static/releases/test/index.html;
 
           sudo ln -sf /data/web_static/releases/test/ /data/web_static/current;
 
