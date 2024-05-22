@@ -24,7 +24,7 @@ def displayC(text):
 @app.route("/python/", strict_slashes=False)
 @app.route("/python/<string:text>", strict_slashes=False)
 def displayPython(text="is cool"):
-    return "Python {}".format(text)
+    return "Python {}".format(text.replace('_', ' '))
 
 
 if __name__ == "__main__":
