@@ -22,10 +22,18 @@ class User(BaseModel, Base):
         #     relationship("Place", cascade="all, delete", backref="user")
         # reviews = \
         #     relationship("Review", cascade="all, delete", backref="users")
-        places = relationship("Place", backref="user")
-        reviews = relationship("Review", backref="user")
+        # places = relationship("Place", backref="user")
+        # reviews = relationship("Review", backref="user")
+        places = \
+            relationship("Place",
+                         cascade="all, delete, delete-orphan", backref="user")
+
     else:
         email = ''
         password = ''
         first_name = ''
         last_name = ''
+
+    def __init__(self, *args, **kwargs):
+        """initializes city"""
+        super().__init__(*args, **kwargs)

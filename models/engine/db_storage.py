@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 
 """The DBStorage Class."""
@@ -14,7 +13,7 @@ from models.review import Review
 from models.place import Place
 
 
-class DBstorage:
+class DBStorage:
     __engine = None
     __session = None
 
@@ -45,7 +44,7 @@ class DBstorage:
 
         objects = {}
         for classy in classes:
-            if cls is None or cls is classes[classy]:
+            if cls is None or cls is classes[classy] or cls is classy:
                 laQuestion = self.__session.query(classes[classy]).all()
                 for oJ in laQuestion:
                     key = "{}.{}".format(oJ.__class__.__name__, oJ.id)
@@ -70,9 +69,8 @@ class DBstorage:
         Base.metadata.create_all(self.__engine)
         sesh = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sesh)
-        self.__session = Session()
+        self.__session = Session
 
     def close(self):
         """Call the remove method on the private session attribute."""
-        self.__session.remove()
-
+        self.__session.close()

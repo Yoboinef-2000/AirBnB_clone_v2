@@ -12,12 +12,19 @@ class City(BaseModel, Base):
     """ The city class, contains state ID and name """
 
     if theREEEALenv == "db":
-        __tablename__ = "cities"
+        __tablename__ = 'cities'
         name = Column(String(128), nullable=False)
-        state_id = Column(String(128), ForeignKey('states.id'),
+        state_id = Column(String(60), ForeignKey('states.id'),
                           nullable=False)
         places = \
-            relationship("Place", cascade="all, delete, delete-orphan", backref="cities")
+            relationship("Place",
+                         cascade="all, delete, delete-orphan", backref="city")
+
+        # name = Column(String(128), nullable=False)
+        # state_id = Column(String(60),
+        # ForeignKey('states.id'), nullable=False)
+        # places = relationship("Place", cascade="all,
+        # delete, delete-orphan", backref="city")
     else:
         state_id = ""
         name = ""

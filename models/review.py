@@ -3,12 +3,13 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
-from os  import getenv
+from os import getenv
 
 
 theREEEALenv = getenv('HBNB_TYPE_STORAGE')
 
-class Review(BaseModel,Base):
+
+class Review(BaseModel, Base):
     """ Review classto store review information """
     if theREEEALenv == "db":
         __tablename__ = 'reviews'

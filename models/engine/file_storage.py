@@ -22,7 +22,10 @@ class FileStorage:
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
-        self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
+        # self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
+        if obj is not None:
+            key = obj.__class__.__name__ + "." + obj.id
+            self.__objects[key] = obj
 
     def save(self):
         """Saves storage dictionary to file"""
@@ -32,6 +35,15 @@ class FileStorage:
             for key, val in temp.items():
                 temp[key] = val.to_dict()
             json.dump(temp, f)
+
+        # json_objects = {}
+        # for key in self.__objects:
+        #     if key == "password":
+        #         json_objects[key].decode()
+        #     json_objects[key] = self.__objects[key].to_dict(save_fs=1)
+        # with open(self.__file_path, 'w') as f:
+        #     json.dump(json_objects, f)
+
 
     def reload(self):
         """Loads storage dictionary from file"""
@@ -59,8 +71,11 @@ class FileStorage:
 
     def delete(self, obj=None):
         """Delete obj from __objects if it is inside"""
-        if obj:
-            key = type(obj).__class__.name + '.' + obj.id
+        if obj is not None:
+            # key = type(obj).__class__.name + '.' + obj.id
+            # if key in self.__objects:
+            #     del self.__objects[key]
+            key = obj.__class__.__name__ + '.' + obj.id
             if key in self.__objects:
                 del self.__objects[key]
 

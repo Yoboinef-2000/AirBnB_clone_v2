@@ -12,12 +12,18 @@ theREEEALenv = getenv('HBNB_TYPE_STORAGE')
 
 class State(BaseModel, Base):
     """ State class """
+    # if theREEEALenv == "db":
+    #     __tablename__ = 'states'
+    #     name = Column(String(128), nullable=False)
+    #     cities = relationship("City",
+    #                           backref="state", cascade="all, delete,\
+    #                               delete-orphan")
+    __tablename__ = 'states'
     if theREEEALenv == "db":
-        __tablename__ = 'states'
         name = Column(String(128), nullable=False)
-        cities = relationship("City",
-                              backref="state", cascade="all, delete,\
-                                  delete-orphan")
+        cities = \
+            relationship("City",
+                         cascade="all, delete, delete-orphan", backref="state")
     else:
         name = ""
 
@@ -32,3 +38,5 @@ class State(BaseModel, Base):
                 if city.state_id == self.id:
                     cities.append(city)
             return (cities)
+            # return [city for city in storage.all(City).values()
+            # if city.state_id == self.id]
